@@ -9,25 +9,25 @@ countries = [
   { 'id': 3, 'name': "Switzerland","capital":"Bern"},
 ] 
 
-# @app.route('/countries/<id>', methods=["DELETE"])
-# def delete_country(id):
-#     country = next(filter(lambda x: x['id'] ==id, countries), None)
-#     if country is None:
-#         return jsonify({"error" : "country not found"}),  404
-#     countries.remove(country)
-#     return jsonify({"email": "country deleted"}), 200
+@app.route('/countries/<id>', methods=["DELETE"])
+def delete_country(id):
+    country = next(filter(lambda x: x['id'] ==id, countries), None)
+    if country is None:
+        return jsonify({"error" : "country not found"}),  404
+    countries.remove(country)
+    return jsonify({"email": "country deleted"}), 200
       
-# @app.route('/countries/,<id> ', methods  =["PUT"])
-# def delete_country(id):
-#   global countries
-#   name=request.form.get("name")
-#   capital=request.form.get("capital")
+@app.route('/countries/<id> ', methods  =["PUT"])
+def delete_country(id):
+  global countries
+  name=request.form.get("name")
+  capital=request.form.get("capital")
 
-#   for y in countries:
-#     if y.get("id")  ==id:
-#         y['name'] = str(name)
-#         y['capital']=str(capital)
-#     return jsonify(countries), 200
+  for y in countries:
+    if y.get("id")  ==id:
+        y['name'] = str(name)
+        y['capital']=str(capital)
+    return jsonify(countries), 200
 
 @app.route('/countries/',  methods=["GET"])
 def get_countries():
@@ -48,14 +48,14 @@ def request_country():
     countries.append(data)
     return jsonify(data), 201
  
-# @app.route('/countries/<id',methods=["PATCH"])
-# def update_country_partial(id):
-#     data  = request.get_json()
-#     country = next(filter(lambda x: x["id"] ==  id, countries),   None)
-#     if country is None:
-#       return jsonify({"error" : "country not found"}),  404
-#     country.update(data)
-#     return jsonify(country),  200
+@app.route('/countries/<id>',methods=["PATCH"])
+def update_country_partial(id):
+    data  = request.get_json()
+    country = next(filter(lambda x: x["id"] ==  id, countries),   None)
+    if country is None:
+      return jsonify({"error" : "country not found"}),  404
+    country.update(data)
+    return jsonify(country),  200
 
 if __name__ ==  "__main__":
   app.run(host="0.0.0.0", port=5000,  debug=  True)
